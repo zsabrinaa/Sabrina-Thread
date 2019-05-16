@@ -1,29 +1,55 @@
 import React, { Component } from "react";
-
+import StripeCheckout from 'react-stripe-checkout';
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Image } from "../components/Img";
-// import {Elements, StripeProvider} from 'react-stripe-elements';
-// import CheckoutForm  from "../components/CheckOutForm";
+import axios from "axios";
+import M from 'materialize-css';
 
 class Cart extends Component {
     state = {
-        items: []
+        items: [],
+        price: 100.99,
+      
     };
-
 
     componentDidMount() {
         this.loadCart();
+        M.FormSelect.init(document.querySelectorAll('select'));
     }
-    loadCart = () => {
-        this.setState({ items: JSON.parse(localStorage.getItem("cart")) })
-        // API.getCartItems()
-        //     .then(res => {
-        // this.setState({ items: JSON.parse(localStorage.getItem("cart")) })
-        // })
-        // .catch(err => console.log(err));
-    };
+    // getSubtotal = (json) => {
+    //     subtotal = 0;
 
+    //     json.forEach(element => {
+    //         subtotal = + element.price
+    //     });
+
+    //     return subtotal;
+    // }
+
+    loadCart = () => {
+        this.setState( state => {
+            return {
+                items: JSON.parse(localStorage.getItem("cart")),
+            
+            }
+        })
+    }
+
+    handleToken = (token) => {
+        console.log({ token })
+        const response = axios.post(
+            "https://e63d4.sse.codesandbox.io/checkout",
+            { token, }
+        );
+        const { status } = response.data;
+        console.log("Response:", response.data);
+        if (status === "success") {
+            M.toast("Success! Check email for details", { type: "success" });
+        } else {
+            M.toast("Something went wrong", { type: "error" });
+        }
+    };
     render() {
         return (
             <div className="container ">
@@ -60,22 +86,15 @@ class Cart extends Component {
                     </table>
                 </div>
                 {this.state.items ? (
-                    <div>
-                        {/* <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-                            <div className="example">
-                                <h1>React Stripe Elements Example</h1>
-                                <Elements>
-                                    <CheckoutForm />
-                                </Elements>
-                            </div>
-                        </StripeProvider> */}
-                        <div className="row">
-                            <div className="col s4 push-s8">
-                                <button
-                                    // onClick={props.handleFormSubmit}
-                                    type="submit"
-                                    className="placeOrderbtn">Check Out</button>
-                            </div>
+                    <div className="row">
+                    <div className="col s5 push-s7">
+                        <StripeCheckout
+                            stripeKey="pk_test_ghF466uME2tEX5zsqi6ix7iU00yBuJ4Wur"
+                            token={this.handleToken}
+                            billingAddress
+                            shippingAddress
+                            amount={this.state.price * 100}
+                        />
                         </div>
                     </div>
                 ) : (""

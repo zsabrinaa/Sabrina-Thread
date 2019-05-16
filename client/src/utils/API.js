@@ -4,7 +4,9 @@ export default {
   // search: function(query) {
   //   return axios.get(BASEURL + query + APIKEY);
   // },
-  
+  checkOut: function(){
+    return axios.post("/api/checkout")
+  },
   getItems: function() {
     return axios.get("/api/items");
   },

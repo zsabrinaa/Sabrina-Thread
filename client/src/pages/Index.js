@@ -26,21 +26,11 @@ class Index extends Component {
   //       })
   //     ).catch(err => console.log(err));
   // };
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
 
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   this.searchBooks(this.state.search);
-  // };
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <main>
           <div className="row">
           </div>
@@ -48,21 +38,17 @@ class Index extends Component {
             <div className="col m12">
               <Image
                 src={"http://mcflysoftware.com/sabrina/sabrina_cover.png?fbclid=IwAR2biDqoWdq6sMuVkHKD13YRT4ApeH3AlldZtxAK9BXdVHeOj58ip3naVmI"}
-                
               />
+              <a href="/shop"><button
+                // onClick={props.handleFormSubmit} 
+                className="btn">Shop Now</button></a>
             </div>
-            <div className="row">
-                  <div className="col m12">
-                    <StartBtn />
-                  </div>
-                </div>
           </div>
           {/* end top img */}
-
           <div className="row">
             <div className="col m12 canterd">
-             <h1>Shop by type</h1> 
-        </div>
+              <h1>Shop by type</h1>
+            </div>
           </div>
           {/* end text */}
           <div className="row">

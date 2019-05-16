@@ -3,7 +3,6 @@ const db = require("../models");
 module.exports = {
   findAll: function(req, res) {
     db.Item
-   
       .find({})
       .then(dbModel => {
         console.log(dbModel)
@@ -12,7 +11,6 @@ module.exports = {
   },
   findAll2: function(req, res) {
     db.Cart
-   
       .find({})
       .then(dbModel => {
         console.log(dbModel)

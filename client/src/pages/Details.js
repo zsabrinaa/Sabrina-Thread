@@ -75,7 +75,6 @@ class Detail extends Component {
 
                                 let resultsArray = this.instance.getSelectedValues();
                                 let result = resultsArray[0]
-
                                 let size = result.split(" ");
                                 // console.log(size, )
                                 // // this.addToCart(
